@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="flex h-screen bg-gray-200">
+
+  <!-- ================== Sidebar ================== -->
+  <aside id="sidebar" class="w-64 bg-white shadow-lg flex-shrink-0 transform -translate-x-full lg:translate-x-0 fixed lg:relative inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-blue-600 flex items-center">
+          <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
+          PriceTracker
+        </h2>
+        <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav class="space-y-2">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Dashboard
+        </a>
+        <a href="/products" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+          Products
+        </a>
+        <a href="/alerts" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+          </svg>
+          Alerts
+        </a>
+        <a href="/settings" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Settings
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ================== Main Content ================== -->
+  <div class="flex-1 flex flex-col overflow-hidden lg:ml-0">
+
+    <!-- ================== Navbar ================== -->
+    <header class="flex items-center justify-between bg-white shadow px-6 py-4">
+      <div class="flex items-center gap-4">
+        <button id="openSidebar" class="text-gray-500 lg:hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <h1 class="text-xl font-semibold text-gray-700">Dashboard</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="relative">
+          <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-400 w-64">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="relative">
+          <button id="notificationsButton" class="p-2 text-gray-500 hover:text-blue-600 relative">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            <span class="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">3</span>
+          </button>
+          <!-- Notifications Dropdown (Hidden by default) -->
+          <div id="notificationsDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-10 border border-gray-200">
+            <div class="p-4 border-b border-gray-200">
+              <h3 class="font-semibold text-gray-700">Notifications</h3>
+            </div>
+            <div class="max-h-60 overflow-y-auto">
+              <a href="#" class="block px-4 py-3 hover:bg-gray-50 border-b border-gray-100">
+                <div class="flex items-start">
+                  <div class="bg-blue-100 p-2 rounded-full mr-3">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Price dropped for iPhone 13</p>
+                    <p class="text-xs text-gray-500">2 minutes ago</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="block px-4 py-3 hover:bg-gray-50 border-b border-gray-100">
+                <div class="flex items-start">
+                  <div class="bg-red-100 p-2 rounded-full mr-3">
+                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Product out of stock: Samsung TV</p>
+                    <p class="text-xs text-gray-500">45 minutes ago</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="block px-4 py-3 hover:bg-gray-50">
+                <div class="flex items-start">
+                  <div class="bg-green-100 p-2 rounded-full mr-3">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">New product added: MacBook Pro</p>
+                    <p class="text-xs text-gray-500">1 hour ago</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="p-2 border-t border-gray-200">
+              <a href="/alerts" class="block text-center text-sm text-blue-600 font-medium py-2 hover:bg-blue-50 rounded">View all notifications</a>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <button id="userMenuButton" class="flex items-center focus:outline-none">
+            <img src="https://i.pravatar.cc/40?img=12" alt="Profile" class="w-10 h-10 rounded-full border-2 border-blue-500">
+            <span class="ml-2 text-gray-700 font-medium">John Doe</span>
+            <svg class="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <!-- User Dropdown (Hidden by default) -->
+          <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-10 border border-gray-200 py-1">
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">Your Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">Settings</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">Export Data</a>
+            <div class="border-t border-gray-100"></div>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================== Page Content ================== -->
+    <main class="overflow-y-auto p-6">
+      
+      <!-- ================== Page Header ================== -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Price Tracker Dashboard</h1>
+        <p class="text-gray-600">
+          Monitor product prices, track trends, and receive alerts for price changes.
+        </p>
+      </div>
+
+      <!-- ================== Stats Cards ================== -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Total Products -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="flex items-center">
+            <div class="p-3 rounded-lg bg-blue-50 text-blue-600 mr-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Total Products</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1">{{ products|length }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Average Price -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="flex items-center">
+            <div class="p-3 rounded-lg bg-green-50 text-green-600 mr-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Average Price</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1">
+                ${{ "%.2f"|format(products|map(attribute='price')|sum / (products|length if products|length > 0 else 1)) }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lowest Price -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="flex items-center">
+            <div class="p-3 rounded-lg bg-red-50 text-red-600 mr-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Lowest Price</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1">${{ lowest_price }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Highest Price -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="flex items-center">
+            <div class="p-3 rounded-lg bg-yellow-50 text-yellow-600 mr-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Highest Price</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1">${{ highest_price }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================== Export Toolbar ================== -->
+      <div class="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-100">
+        <div class="flex flex-wrap items-center justify-between">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4 md:mb-0">Export Data</h3>
+          <div class="flex flex-wrap gap-3">
+            <a href="{{ url_for('export_data', format='csv') }}" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200 flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              CSV
+            </a>
+            <a href="{{ url_for('export_data', format='json') }}" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200 flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              JSON
+            </a>
+            <a href="{{ url_for('export_data', format='excel') }}" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200 flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              Excel
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================== Product Table Section ================== -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <div class="flex flex-wrap items-center justify-between mb-6">
+          <h3 class="text-lg font-semibold text-gray-800">Tracked Products</h3>
+          <div class="relative mt-4 md:mt-0">
+            <input 
+              type="text" 
+              id="searchInput" 
+              onkeyup="filterProducts()" 
+              placeholder="Search products..."
+              class="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-400 w-full md:w-64"
+            >
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th class="px-6 py-3">ID</th>
+                <th class="px-6 py-3">Name</th>
+                <th class="px-6 py-3">Price</th>
+                <th class="px-6 py-3">Status</th>
+                <th class="px-6 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {% for product in products %}
+              <tr class="hover:bg-gray-50 transition-colors duration-150">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ product.id }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ product.name }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-semibold">${{ product.price }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    Tracked
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="/product/{{ product.id }}" class="text-indigo-600 hover:text-indigo-900 mr-4">View</a>
+                  <a href="#" class="text-red-600 hover:text-red-900">Remove</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between mt-6">
+          <div class="text-sm text-gray-700">
+            Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">97</span> results
+          </div>
+          <div class="flex space-x-2">
+            <button class="px-3 py-1.5 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              Previous
+            </button>
+            <button class="px-3 py-1.5 rounded-md bg-blue-600 border border-blue-600 text-sm font-medium text-white hover:bg-blue-700">
+              1
+            </button>
+            <button class="px-3 py-1.5 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              2
+            </button>
+            <button class="px-3 py-1.5 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              3
+            </button>
+            <button class="px-3 py-1.5 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</div>
+
+<!-- ================== JavaScript for Interactive Elements ================== -->
+<script>
+// Toggle sidebar on mobile
+document.getElementById('openSidebar').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.remove('-translate-x-full');
+});
+
+document.getElementById('closeSidebar').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.add('-translate-x-full');
+});
+
+// Toggle notifications dropdown
+document.getElementById('notificationsButton').addEventListener('click', function(e) {
+  e.stopPropagation();
+  document.getElementById('notificationsDropdown').classList.toggle('hidden');
+});
+
+// Toggle user dropdown
+document.getElementById('userMenuButton').addEventListener('click', function(e) {
+  e.stopPropagation();
+  document.getElementById('userDropdown').classList.toggle('hidden');
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function() {
+  document.getElementById('notificationsDropdown').classList.add('hidden');
+  document.getElementById('userDropdown').classList.add('hidden');
+});
+
+// Prevent dropdowns from closing when clicking inside them
+document.querySelectorAll('#notificationsDropdown, #userDropdown').forEach(function(element) {
+  element.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+});
+
+// Product search functionality
+function filterProducts() {
+  let input = document.getElementById('searchInput');
+  let filter = input.value.toLowerCase();
+  let rows = document.querySelectorAll("table tbody tr");
+  
+  rows.forEach(row => {
+    let nameCell = row.getElementsByTagName("td")[1];
+    if(nameCell){
+      let txtValue = nameCell.textContent || nameCell.innerText;
+      row.style.display = txtValue.toLowerCase().includes(filter) ? "" : "none";
+    }
+  });
+}
+</script>
+
+{% endblock %}

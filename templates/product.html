@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="flex h-screen bg-gray-200">
+  <!-- ================== Sidebar ================== -->
+  <aside id="sidebar" class="w-64 bg-white shadow-lg flex-shrink-0 transform -translate-x-full lg:translate-x-0 fixed lg:relative inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-blue-600 flex items-center">
+          <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
+          PriceTracker
+        </h2>
+        <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav class="space-y-2">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10h3m10-11l2 2v10h-3m-6 0v-4h2v4m-6 0h6"></path>
+          </svg>
+          Dashboard
+        </a>
+        <a href="/products" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4v10l8 4 8-4V7z"></path>
+          </svg>
+          Products
+        </a>
+        <a href="/alerts" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 00-4-5.7V5a2 2 0 10-4 0v.3A6 6 0 006 11v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1"></path>
+          </svg>
+          Alerts
+        </a>
+        <a href="/settings" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition-all border-l-4 border-transparent hover:border-blue-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.3 4.3c.4-1.7 2.9-1.7 3.4 0a1.7 1.7 0 002.6 1c1.5-.9 3.3.8 2.4 2.4a1.7 1.7 0 001.1 2.6c1.8.4 1.8 2.9 0 3.4a1.7 1.7 0 00-1.1 2.6c.9 1.5-.8 3.3-2.4 2.4a1.7 1.7 0 00-2.6 1.1c-.4 1.8-2.9 1.8-3.4 0a1.7 1.7 0 00-2.6-1.1c-1.5.9-3.3-.8-2.4-2.4a1.7 1.7 0 00-1.1-2.6c-1.8-.4-1.8-2.9 0-3.4a1.7 1.7 0 001.1-2.6c-.9-1.5.8-3.3 2.4-2.4.9.6 2.3.1 2.6-1.1z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Settings
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ================== Main Content ================== -->
+  <div class="flex-1 flex flex-col overflow-hidden lg:ml-0">
+    <!-- ================== Navbar ================== -->
+    <header class="flex items-center justify-between bg-white shadow px-6 py-4">
+      <div class="flex items-center gap-4">
+        <button id="openSidebar" class="text-gray-500 lg:hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <h1 class="text-xl font-semibold text-gray-700">Dashboard</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- Search -->
+        <div class="relative">
+          <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-400 w-64">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <!-- Notifications -->
+        <div class="relative">
+          <button id="notificationsButton" class="p-2 text-gray-500 hover:text-blue-600 relative">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 00-4-5.7V5a2 2 0 10-4 0v.3A6 6 0 006 11v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1"></path>
+            </svg>
+            <span class="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">3</span>
+          </button>
+          <!-- Dropdown -->
+          <div id="notificationsDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-10 border border-gray-200">
+            <div class="p-4 border-b border-gray-200">
+              <h3 class="font-semibold text-gray-700">Notifications</h3>
+            </div>
+            <div class="max-h-60 overflow-y-auto">
+              <a href="#" class="block px-4 py-3 hover:bg-gray-50 border-b">Price dropped...</a>
+              <a href="#" class="block px-4 py-3 hover:bg-gray-50 border-b">Product out of stock...</a>
+              <a href="#" class="block px-4 py-3 hover:bg-gray-50">New product added...</a>
+            </div>
+            <div class="p-2 border-t border-gray-200">
+              <a href="/alerts" class="block text-center text-sm text-blue-600 font-medium py-2 hover:bg-blue-50 rounded">View all notifications</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================== Page Content ================== -->
+    <main class="overflow-y-auto p-6 space-y-6">
+      <!-- Product Details + Price Chart -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+          
+          <div class="flex-1">
+          
+            <div class="mt-6 flex gap-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">Track Price</button>
+              <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">Compare</button>
+            </div>
+          </div>
+        </div>
+        <!-- Chart -->
+        <div class="mt-8">
+          <canvas id="priceChart" height="120"></canvas>
+        </div>
+      </div>
+
+      <!-- Similar Products -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Similar Products</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[32rem] overflow-y-auto pr-2">
+          {% for product in similar_products | default([{'name': 'Sample Product', 'price': 99.99, 'change': -5, 'id': 1}]) %}
+          <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-all duration-300 bg-white">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 h-16 w-16 bg-gradient-to-tr from-blue-100 to-blue-50 rounded-md flex items-center justify-center">
+                <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h4v4H4zM14 6h4v4h-4zM4 16h4v4H4zM14 16h4v4h-4z"></path>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-sm font-semibold text-gray-900">{{ product.name }}</h4>
+                <p class="text-sm text-gray-500 mt-1">£{{ product.price }}</p>
+                <div class="mt-2">
+                  {% if product.change > 0 %}
+                    <span class="text-xs text-red-600 font-medium">+{{ product.change }}%</span>
+                  {% elif product.change < 0 %}
+                    <span class="text-xs text-green-600 font-medium">{{ product.change }}%</span>
+                  {% else %}
+                    <span class="text-xs text-gray-500">No change</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 flex justify-between items-center">
+              <a href="/product/{{ product.id }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">View Details</a>
+              <button class="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition">Track</button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('priceChart')?.getContext('2d');
+if (ctx) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
+  gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+  let dates = {{ dates | tojson | default(['2023-01-01', '2023-01-02', '2023-01-03']) }};
+  let prices = {{ prices | tojson | default([120, 118, 115]) }};
+
+  const maxPoints = 100;
+  if (dates.length > maxPoints) {
+    dates = dates.slice(-maxPoints);
+    prices = prices.slice(-maxPoints);
+  }
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: dates,
+      datasets: [{
+        label: 'Price (£)',
+        data: prices,
+        borderColor: 'rgb(59, 130, 246)',
+        backgroundColor: gradient,
+        tension: 0.3,
+        fill: true,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#6B7280' } },
+        y: { ticks: { callback: v => '£' + v, color: '#6B7280' } }
+      }
+    }
+  });
+}
+</script>
+
+{% endblock %}
