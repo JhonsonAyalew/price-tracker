@@ -23,7 +23,15 @@ Features
 3. Data is stored in a database and plotted in the dashboard.
 4. Alerts are sent when prices drop or meet conditions.
 
-Demo Screenshots
+📸 Demo Screenshots  
+
+Dashboard with Price Trends  
+![Dashboard Screenshot](screenshots/dashboard.png)  
+
+
+
+Example CSV Export  
+![CSV Output](screenshots/csv.png)  
 
 
 Example Use Case
